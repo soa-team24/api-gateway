@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+option go_package = "proto/follower";
+import "google/api/annotations.proto";
+
+service FollowService {
+    rpc AddFollow(AddFollowRequest) returns (AddFollowResponse) {
+        option (google.api.http) = {
+            post: "/follow"
+            body: "*"
+        };
+    }
+
+    rpc GetAllFollowersForUser(GetFollowersRequest) returns(GetFollowersResponse) {
+        option (google.api.http) = {
+            get: "/userFollowers/{userId}"
+        };
+    }
+
+    rpc GetAllFollowersOfMyFollowers(GetFollowersOfMyFollowersRequest) returns(GetFollowersResponse) {
+        option (google.api.http) = {
+            get: "/userSuggestedFollowers/{userId}"
+        };
+    }
+
+    rpc GetAllProfiles(GetAllProfilesRequest) returns (GetAllProfilesResponse) {
+        option (google.api.http) = {
+            get: "/profiles"
+        };
+    }
+
+    rpc CheckIfUserFollows(CheckIfUserFollowsRequest) returns (CheckIfUserFollowsResponse) {
+        option (google.api.http) = {
+            get: "/checkIfFollows/{followerId}/{userId}"
+        };
+    }
+    
+}
+
+message AddFollowRequest {
+    Follow follow = 1;
+}
+
+message AddFollowResponse {
+}
+
+message GetFollowersRequest {
+    uint32 userId = 1;
+}
+
+message GetFollowersResponse {
+    repeated Profile followers = 1;
+}
+
+message GetFollowersOfMyFollowersRequest {
+    uint32 userId = 1;
+}
+
+
+message GetAllProfilesRequest {}
+
+message GetAllProfilesResponse {
+    repeated Profile profiles = 1;
+}
+
+message CheckIfUserFollowsRequest {
+    uint32 followerId = 1;
+    uint32 userId = 2;
+}
+
+message CheckIfUserFollowsResponse {
+    bool isFollowing = 1;
+}
+
+message Profile {
+    int64 id = 1;
+    string firstNname = 2;
+    string lastName = 3;
+    string profilePicture = 4;
+    int64 userId = 5;
+    repeated Profile followers = 6;
+}
+
+message Follow {
+    uint32 profileId = 1;
+    uint32 followerId = 2;
+}
+
