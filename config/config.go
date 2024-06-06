@@ -10,10 +10,10 @@ type Config struct {
 
 func GetConfig() Config {
 	return Config{
-		BlogServiceAddress:        ":8000",
-		FollowerServiceAddress:    ":8000",
-		StakeholderServiceAddress: ":8000",
-		TourServiceAddress:        ":8000",
-		Address:                   ":8000",
+		BlogServiceAddress:        "8000",
+		FollowerServiceAddress:    "8000",
+		StakeholderServiceAddress: "8000",
+		TourServiceAddress:        "8000",
+		Address:                   "8000",
 	}
 }
